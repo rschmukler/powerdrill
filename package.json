@@ -18,5 +18,13 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rschmukler/powerdrill/issues"
+  },
+  "dependencies": {
+    "superagent": "~0.15.7",
+    "clone": "~0.1.11"
+  },
+  "devDependencies": {
+    "mocha": "~1.16.2",
+    "expect.js": "~0.2.0"
   }
 }
