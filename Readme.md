@@ -1,6 +1,6 @@
 # Powerdrill
 
-Making mandrill, powerful.
+Mandrill with power!
 
 ## Why?
 
