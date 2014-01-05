@@ -6,6 +6,12 @@
   "scripts": {
     "test": "make test"
   },
+  "config": {
+    "blanket" : {
+      "pattern": "lib/",
+      "data-cover-never": "node_modules"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git://git@github.com/rschmukler/powerdrill"
@@ -25,6 +31,9 @@
   },
   "devDependencies": {
     "mocha": "~1.16.2",
-    "expect.js": "~0.2.0"
+    "expect.js": "~0.2.0",
+    "blanket": "~1.1.6",
+    "coveralls": "~2.6.1",
+    "mocha-lcov-reporter": "0.0.1"
   }
 }

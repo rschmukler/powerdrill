@@ -1,6 +1,9 @@
 # Powerdrill
+[![Build Status](https://api.travis-ci.org/rschmukler/powerdrill.png)](http://travis-ci.org/rschmukler/powerdrill) 
+[![Coverage Status](https://coveralls.io/repos/rschmukler/powerdrill/badge.png)](https://coveralls.io/r/rschmukler/powerdrill)
 
 Mandrill with power!
+
 
 ## Why?
 
