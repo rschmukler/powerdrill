@@ -441,7 +441,7 @@ describe('Powerdrill', function() {
         };
         apiMock.end = function(cb) {
           request.post = oldPost;
-          cb({});
+          cb({ok: true});
         };
         return apiMock;
       };
@@ -454,7 +454,7 @@ describe('Powerdrill', function() {
       before(function() {
         apiMock = {
           send: function() { return this; },
-          end: function(cb) { cb({}); return this; }
+          end: function(cb) { cb({ok: true}); return this; }
         };
         request.post = function() {
           return apiMock;

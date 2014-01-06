@@ -53,7 +53,7 @@ message.apiKey('12345')
 .to('John Doe <john-doe@example.com>')
 .tag('complex')
 .tag('new-style')
-.send(function(resp) {
+.send(function(err, resp) {
   console.log(resp);
 });
 ```
@@ -128,7 +128,7 @@ message.to('Ryan Schmukler <ryan@slingingcode.com>', {name: 'Ryan'}, {uid: 123})
 ### message.send(done)
 
 Sends the message as configured. Typically the last command called. Calls
-`done(resp)` where `resp` is the body returned from the mandrill API.
+`done(err, resp)` where `resp` is the body returned from the mandrill API.
 
 ### message.intercept(email)
 
