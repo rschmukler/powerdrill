@@ -25,14 +25,14 @@ The advantages of Mandrill + Powerdrill:
 npm install powerdrill
 ```
 
-Basic usage:
+Sending an email with the `registration` template:
 
 ```js
-var emails = require('powerdrill')('myApiKey');
+var email = require('powerdrill')('myApiKey');
 
-var registrationEmail = emails('registration'); // sets the template
+var message = email('registration'); // sets the template
 
-registrationEmail
+message
 .subject('Thanks for registering')
 .to('ryan@slingingcode.com')
 .send();
@@ -95,6 +95,21 @@ email('some-template')
 .send();
 ```
 
+### Default intercept
+
+Similarly a builder can set an interceptor (see below) for messages. This can be
+useful for development environments.
+
+```js
+var email = require('powerdrill')('myApiKey', 'ryan@slingingcode.com');
+//or
+var email = require('powerdrill')('myApiKey');
+email.interceptor = 'ryan@slingingcode.com';
+
+var message = email('some-template');
+message.to('someguy@gmail.com');
+message.send() // will send to ryan@slingingcode.com
+```
 
 
 ### Working with Messages

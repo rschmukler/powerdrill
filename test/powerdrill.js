@@ -20,6 +20,14 @@ describe('Builder', function() {
   it('sets the template name', function() {
     expect(message).to.have.property('_template', 'some-template');
   });
+
+  it('sets an interceptor', function() {
+    var intercepted = require('../')('someKey');
+    intercepted.interceptor = 'ryan@spotlight.fm';
+    var message = intercepted('some-template');
+    expect(message._intercept).to.be.ok();
+  });
+
 });
 
 describe('Message', function() {
