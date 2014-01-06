@@ -1,4 +1,9 @@
 
+0.2.0 / 2014-01-06 
+==================
+
+ * Refactored to return a message builder by default
+
 0.1.1 / 2014-01-06 
 ==================
 

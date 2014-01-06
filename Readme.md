@@ -28,13 +28,12 @@ npm install powerdrill
 Basic usage:
 
 ```js
-var Powerdrill = require('powerdrill');
+var emails = require('powerdrill')('myApiKey');
 
-var message = new Powerdrill();
+var registrationEmail = emails('registration'); // sets the template
 
-message.apiKey('12345')
-.subject('Hello world!')
-.template('sample-template')
+registrationEmail
+.subject('Thanks for registering')
 .to('ryan@slingingcode.com')
 .send();
 ```
@@ -42,9 +41,9 @@ message.apiKey('12345')
 A little more complex:
 
 ```js
-var Powerdrill = require('powerdrill');
+var Message = require('powerdrill').Message;
 
-var message = new Powerdrill();
+var message = new Message();
 
 message.apiKey('12345')
 .subject('Hello world!')
@@ -60,7 +59,47 @@ message.apiKey('12345')
 
 ## Complete Documentation
 
-All of powerdrill's configuration methods are chainable, making for highly
+### Getting a Builder
+
+Powerdrill exports a function which helps build messages with an API Key
+defined. It returns a `Message`. This helps avoid having to continually type out your api key.
+
+```js
+var email = require('powerdrill')('myApiKey');
+
+var message = email('some-template')
+message.subject('Hello world!');
+message.to('ryan@slingingcode.com');
+message.send();
+
+```
+
+is equivalent to:
+
+```js
+var Message = require('powerdrill').Message;
+
+var message = new Message('myApiKey', 'some-template');
+// or
+var message = new Message();
+message.apiKey('myApiKey');
+message.template('some-template');
+```
+
+The purpose of the builder is it allows syntax like:
+
+```js
+email('some-template')
+.subject('Hello world!')
+.to('ryan@slingingcode.com')
+.send();
+```
+
+
+
+### Working with Messages
+
+All of `Message`'s configuration methods are chainable, making for highly
 readable syntax.
 
 #### Constructor(apiKey, template-name)
@@ -69,8 +108,9 @@ Returns a new powerdrill instance with specified `apiKey` and `template`. Use of
 `new` keyword is optional.
 
 ```js
-var messageOne = new Powerdrill('123', 'some-template');
-var messageTwo = Powerdrill('123', 'another-template');
+var Message = require('powerdrill').Message;
+var messageOne = new Message('123', 'some-template');
+var messageTwo = Message('123', 'another-template');
 ```
 
 #### message.apiKey(key)
