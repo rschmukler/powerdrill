@@ -2,23 +2,41 @@
 
 var expect = require('expect.js'),
     request = require('superagent'),
-    Powerdrill = require('../');
+    Message = require('../').Message;
 
-describe('Powerdrill', function() {
+describe('Builder', function() {
+  var builder, message;
+  before(function() {
+    builder = require('../')('builderApiKey');
+    message = builder('some-template');
+  });
+
+  it('returns a message', function() {
+    expect(message).to.be.a(Message);
+  });
+  it('sets the api key', function() {
+    expect(message).to.have.property('_apiKey', 'builderApiKey');
+  });
+  it('sets the template name', function() {
+    expect(message).to.have.property('_template', 'some-template');
+  });
+});
+
+describe('Message', function() {
   var message;
   beforeEach(function() {
-    message = new Powerdrill('key', 'template');
-    expect(message).to.be.a(Powerdrill);
+    message = new Message('key', 'template');
+    expect(message).to.be.a(Message);
   });
 
   describe('constructor', function() {
     it("creates an instance", function() {
-      expect(message).to.be.a(Powerdrill);
+      expect(message).to.be.a(Message);
     });
 
     it("works without new", function() {
-      message = Powerdrill();
-      expect(message).to.be.a(Powerdrill);
+      message = Message();
+      expect(message).to.be.a(Message);
     });
 
     it("sets 'to' to an empty array", function() {
@@ -313,7 +331,7 @@ describe('Powerdrill', function() {
   describe('#requestData', function() {
     var request, message;
     beforeEach(function() {
-      message = new Powerdrill();
+      message = new Message();
 
       message
       .apiKey('123')
@@ -445,7 +463,7 @@ describe('Powerdrill', function() {
         };
         return apiMock;
       };
-      message = new Powerdrill('123', 'registration');
+      message = new Message('123', 'registration');
       message.send(done);
     });
 
@@ -466,7 +484,7 @@ describe('Powerdrill', function() {
       });
 
       it('sends all emails to the interceptor', function(done) {
-        var message = new Powerdrill();
+        var message = new Message();
         message.subject('Some subject');
         message.to('Bob <bob@gmail.com>', {name: 'Bob'});
         message.to('Tom <tom@gmail.com>', {name: 'Tom'});
