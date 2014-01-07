@@ -6,9 +6,13 @@ var builder = function(apiKey, interceptor) {
     if(buildMessage.interceptor) {
       message.intercept(buildMessage.interceptor);
     }
+    if(buildMessage.skip) {
+      message.skip();
+    }
     return message;
   };
   buildMessage.interceptor = interceptor;
+  buildMessage.skip = false;
   return buildMessage;
 };
 

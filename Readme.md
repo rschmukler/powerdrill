@@ -111,6 +111,21 @@ message.to('someguy@gmail.com');
 message.send() // will send to ryan@slingingcode.com
 ```
 
+### Default skip
+
+A builder can set skip to a default value (useful for testing)
+
+```js
+var email = require('powerdrill')('myApiKey');
+if(process.env.NODE_ENV == 'testing') {
+  email.skip = true;
+}
+
+var message = email('some-template');
+message.to('someguy@gmail.com');
+message.send(); // Wont actually hit the api
+```
+
 
 ### Working with Messages
 

@@ -23,12 +23,18 @@ describe('Builder', function() {
     expect(message).to.have.property('_template', 'some-template');
   });
 
-
   it('sets an interceptor', function() {
     var intercepted = require('../')('someKey');
     intercepted.interceptor = 'ryan@spotlight.fm';
     var message = intercepted('some-template');
     expect(message._intercept).to.be.ok();
+  });
+
+  it('sets skip', function() {
+    var skipped = require('../')('someKey');
+    skipped.skip = true;
+    var message = skipped('some-template');
+    expect(message._skip).to.be(true);
   });
 
 });
