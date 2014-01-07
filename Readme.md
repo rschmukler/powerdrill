@@ -185,6 +185,18 @@ message.to('Ryan Schmukler <ryan@slingingcode.com>', {name: 'Ryan'}, {uid: 123})
 Sends the message as configured. Typically the last command called. Calls
 `done(err, resp)` where `resp` is the body returned from the mandrill API.
 
+### message.skip(val)
+
+Skips actually sending the message. Useful for testing so that you're not
+blasted with emails.
+
+`val` is optional, but setting it to false will mark it back to not important (default).
+
+```js
+message.skip() // sets message to skip
+message.skip(false) // Restores it to actually sending
+```
+
 ### message.intercept(email)
 
 Intercepts emails being sent and sends them to `email` instead. Useful for

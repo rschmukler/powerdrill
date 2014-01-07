@@ -14,12 +14,15 @@ describe('Builder', function() {
   it('returns a message', function() {
     expect(message).to.be.a(Message);
   });
+
   it('sets the api key', function() {
     expect(message).to.have.property('_apiKey', 'builderApiKey');
   });
+
   it('sets the template name', function() {
     expect(message).to.have.property('_template', 'some-template');
   });
+
 
   it('sets an interceptor', function() {
     var intercepted = require('../')('someKey');
@@ -50,6 +53,10 @@ describe('Message', function() {
     it("sets 'to' to an empty array", function() {
       expect(message._to).to.be.a(Array);
       expect(message._to).to.have.length(0);
+    });
+
+    it('sets skip to false', function() {
+      expect(message._skip).to.be(false);
     });
 
     it("sets 'globalMergeVars' to an empty array", function() {
@@ -146,6 +153,21 @@ describe('Message', function() {
 
     it("returns the message", function() {
       expect(message.important()).to.be(message);
+    });
+  });
+
+  describe('#skip', function() {
+    it('sets skip to true by default', function() {
+      message.skip();
+      expect(message._skip).to.be(true);
+    });
+    it('sets skip to false', function() {
+      message.skip();
+      message.skip(false);
+      expect(message._skip).to.be(false);
+    });
+    it('returns the message', function() {
+      expect(message.skip()).to.be(message);
     });
   });
 
@@ -473,6 +495,18 @@ describe('Message', function() {
       };
       message = new Message('123', 'registration');
       message.send(done);
+    });
+
+    describe('with skip', function() {
+      it("doesn't call the api", function(done) {
+        var called = false;
+        request.post = function() {
+          throw new Error('I should not have been called');
+        };
+        message = new Message('123', 'something');
+        message.skip();
+        message.send(done);
+      });
     });
 
     describe('with interceptor', function() {
