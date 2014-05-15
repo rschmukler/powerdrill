@@ -1,4 +1,9 @@
 
+0.2.3 / 2014-05-15 
+==================
+
+ * Add optional support for Mandrill subaccounts
+
 0.2.2 / 2014-01-07 
 ==================
 
