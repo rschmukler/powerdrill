@@ -331,6 +331,14 @@ message.userMetadata('ryan@slingingcode.com', {uid: '123456'});
 Mostly internal method. Returns data passsed in to the mandrill API. Useful for
 debugging.
 
+### message.subaccount(subaccount)
+
+Sets the subaccount field of the message
+
+```js
+message.subaccount('MyMandrillSubaccount');
+```
+
 ## Planned features
 
 These are some ideas that I have to extend the library. Please open issues to
