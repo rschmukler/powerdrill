@@ -129,6 +129,19 @@ describe('Message', function() {
     });
   });
 
+  describe('#subaccount', function() {
+    it("defaults to null", function() {
+      expect(message._subaccount).to.be(null);
+    });
+    it("sets the subaccount", function() {
+      message.subaccount('a');
+      expect(message._subaccount).to.be('a');
+    });
+    it("returns the subaccount", function() {
+      expect(message.subaccount('123')).to.be(message);
+    });
+  });
+
   describe('#from', function() {
     it("sets the from address", function() {
       message.from('test@gmail.com');
