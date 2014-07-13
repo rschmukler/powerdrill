@@ -65,6 +65,10 @@ describe('Message', function() {
       expect(message._skip).to.be(false);
     });
 
+    it('sets html to false', function() {
+      expect(message._html).to.be(false);
+    });
+
     it("sets 'globalMergeVars' to an empty array", function() {
       expect(message._globalMergeVars).to.be.a(Array);
       expect(message._globalMergeVars).to.have.length(0);
@@ -114,8 +118,22 @@ describe('Message', function() {
       message.template('a');
       expect(message._template).to.be('a');
     });
+
+    it('sets html to _false', function() {
+      message._html = true;
+      message.template('abc');
+      expect(message._html).to.be(false);
+    });
+
     it("returns the message", function() {
       expect(message.template('123')).to.be(message);
+    });
+  });
+
+  describe('#html', function() {
+    it('sets the _html', function() {
+      message.html('<h1>Hello World</h1>');
+      expect(message._html).to.be('<h1>Hello World</h1>');
     });
   });
 
@@ -499,22 +517,44 @@ describe('Message', function() {
   describe('#send', function() {
     var oldPost = request.post;
 
-    it('sends the email', function(done) {
-      request.post = function(url) {
-        expect(url).to.be('https://mandrillapp.com/api/1.0/messages/send-template.json');
-        var apiMock = { };
-        apiMock.send = function(data) {
-          return this;
+    describe('with template', function() {
+      it('sends the email with send-template', function(done) {
+        request.post = function(url) {
+          expect(url).to.be('https://mandrillapp.com/api/1.0/messages/send-template.json');
+          var apiMock = { };
+          apiMock.send = function(data) {
+            return this;
+          };
+          apiMock.end = function(cb) {
+            request.post = oldPost;
+            cb({ok: true});
+          };
+          return apiMock;
         };
-        apiMock.end = function(cb) {
-          request.post = oldPost;
-          cb({ok: true});
-        };
-        return apiMock;
-      };
-      message = new Message('123', 'registration');
-      message.send(done);
+        message = new Message('123', 'registration');
+        message.send(done);
+      });
     });
+
+    describe('with html', function() {
+      it('sends the email with send', function(done) {
+        request.post = function(url) {
+          expect(url).to.be('https://mandrillapp.com/api/1.0/messages/send.json');
+          var apiMock = { };
+          apiMock.send = function(data) {
+            return this;
+          };
+          apiMock.end = function(cb) {
+            request.post = oldPost;
+            cb({ok: true});
+          };
+          return apiMock;
+        };
+        message = new Message('123');
+        message.html('<h1>Hello world!</h1>');
+        message.send(done);
+    });
+  })
 
     describe('with skip', function() {
       it("doesn't call the api", function(done) {
