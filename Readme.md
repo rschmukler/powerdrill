@@ -38,6 +38,20 @@ message
 .send();
 ```
 
+Or with pure html:
+
+```js
+var email = require('powerdrill')('myApiKey');
+
+var message = email(); 
+
+message
+.subject('Thanks for registering')
+.to('ryan@slingingcode.com')
+.html('<h1>Hello world</h1>')
+.send();
+```
+
 A little more complex:
 
 ```js
@@ -155,6 +169,15 @@ message.apiKey('123');
 
 Sets the template to `template`. This should match the `template-slug` you are
 using in Mandrill's templates.
+
+```js
+message.template('simple-template');
+```
+
+#### message.html(html)
+
+Switches to `html` mode. The email will be sent with the html, instead of a
+template.
 
 ```js
 message.template('simple-template');
@@ -344,5 +367,4 @@ message.subaccount('MyMandrillSubaccount');
 These are some ideas that I have to extend the library. Please open issues to
 suggest new features, or to let me know that you'd like a feature on this list:
 
-- Support for HTML/text emails (without templates on mandrill)
 - More Options (`trackClicks`, `trackOpens` etc)
