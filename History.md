@@ -1,4 +1,9 @@
 
+0.2.7 / 2014-07-29 
+==================
+
+ * Add ability to send plain-text emails or HTML and plain text emails.
+
 0.2.6 / 2014-07-13 
 ==================
 
