@@ -542,6 +542,18 @@ describe('Message', function() {
           expect(url).to.be('https://mandrillapp.com/api/1.0/messages/send.json');
           var apiMock = { };
           apiMock.send = function(data) {
+            if (typeof data.template_name !== 'undefined')
+            {
+              throw new Error('HTML email should not trigger a template');
+            }
+            if (typeof data.message.html !== 'string')
+            {
+              throw new Error('HTML email should have a \'html\' element as part of its data');
+            }
+            if (typeof data.message.text !== 'boolean')
+            {
+              throw new Error('HTML-only email should not have a \'text\' element as part of its data');
+            }
             return this;
           };
           apiMock.end = function(cb) {
@@ -554,7 +566,76 @@ describe('Message', function() {
         message.html('<h1>Hello world!</h1>');
         message.send(done);
     });
-  })
+  });
+
+    describe('with text', function() {
+      it('sends the email with send', function(done) {
+        request.post = function(url) {
+          expect(url).to.be('https://mandrillapp.com/api/1.0/messages/send.json');
+          var apiMock = { };
+          apiMock.send = function(data) {
+            // confirm that data.template_name does not exist and that data.text does
+            if (typeof data.template_name !== 'undefined')
+            {
+              throw new Error('Plain text email should not trigger a template');
+            }
+            if (typeof data.message.text !== 'string')
+            {
+              throw new Error('Plain text email should have a \'text\' element as part of its data');
+            }
+            if (typeof data.message.html !== 'boolean')
+            {
+                throw new Error('Plain-text email should not have a \'html\' element as part of its data');
+            }
+
+            return this;
+          };
+          apiMock.end = function(cb) {
+            request.post = oldPost;
+            cb({ok: true});
+          };
+          return apiMock;
+        };
+        message = new Message('123');
+        message.text('Hello world!');
+        message.send(done);
+    });
+  });
+
+    describe('with text and html', function() {
+      it('sends the email with send', function(done) {
+        request.post = function(url) {
+          expect(url).to.be('https://mandrillapp.com/api/1.0/messages/send.json');
+          var apiMock = { };
+          apiMock.send = function(data) {
+            // confirm that data.template_name does not exist and that data.text does
+            if (typeof data.template_name !== 'undefined')
+            {
+              throw new Error('HTML and plain text email (no template) should not trigger a template');
+            }
+            if (typeof data.message.text !== 'string')
+            {
+              throw new Error('HTML and plain text email (no template) should have a \'text\' element as part of its data');
+            }
+            if (typeof data.message.html !== 'string')
+            {
+                throw new Error('HTML and plain text email (no template) should have a \'html\' element as part of its data');
+            }
+
+            return this;
+          };
+          apiMock.end = function(cb) {
+            request.post = oldPost;
+            cb({ok: true});
+          };
+          return apiMock;
+        };
+        message = new Message('123');
+        message.html('<h1>Hello world!</h1>');
+        message.text('Hello world!');
+        message.send(done);
+    });
+  });
 
     describe('with skip', function() {
       it("doesn't call the api", function(done) {

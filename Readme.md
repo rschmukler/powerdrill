@@ -183,6 +183,22 @@ template.
 message.template('simple-template');
 ```
 
+#### message.text(text)
+
+Switches to `text` mode. The email will be sent with the text, instead of a
+template.
+
+```js
+message.text('simple-text');
+```
+
+Additionally, for a multipart message with HTML and plain text, you can add both parts manually.
+
+```js
+message.html('<h1>Hello world</h1>'); 
+message.text('Hello world');
+```
+
 #### message.subject(subject)
 
 Sets the subject field of the message
