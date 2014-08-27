@@ -1,4 +1,9 @@
 
+0.2.8 / 2014-08-27 
+==================
+
+ * Can now add attachments to the email [@MuzzleFork]
+
 0.2.7 / 2014-07-29 
 ==================
 
