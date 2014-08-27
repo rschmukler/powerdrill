@@ -101,6 +101,10 @@ describe('Message', function() {
     it("sets the template name", function() {
       expect(message._template).to.be('template');
     });
+
+    it("sets the attachments to empty array", function() {
+      expect(message._attachments).to.be.an.array;
+    });
   });
 
   describe("#apiKey", function() {
@@ -127,6 +131,18 @@ describe('Message', function() {
 
     it("returns the message", function() {
       expect(message.template('123')).to.be(message);
+    });
+  });
+
+  describe("#attach", function() {
+    it("builds the attachments array", function () {
+      message.attach("application/pdf", "test.pdf", "SOMEBASE64STRING");
+      expect(message._attachments).to.be.an.array;
+      expect(message._attachments.length).to.be(1);
+      expect(message._attachments[0]).to.be.an.object;
+      expect(message._attachments[0].type).to.be('application/pdf');
+      expect(message._attachments[0].name).to.be('test.pdf');
+      expect(message._attachments[0].content).to.be('SOMEBASE64STRING');
     });
   });
 
@@ -636,6 +652,19 @@ describe('Message', function() {
         message.send(done);
     });
   });
+    describe("with attachment", function () {
+      it("attachment is part of the message to Mandrill", function () {
+        message = new Message('123');
+        message.attach('application/pdf', 'file.pdf', 'SOMEBASE64STRING');
+        var request = message.requestData();
+        expect(request.message.attachments).to.be.an.array;
+        expect(request.message.attachments.length).to.be(1);
+        expect(request.message.attachments[0]).to.be.an.object;
+        expect(request.message.attachments[0].name).to.be('file.pdf');
+        expect(request.message.attachments[0].type).to.be('application/pdf');
+        expect(request.message.attachments[0].content).to.be('SOMEBASE64STRING');
+      });
+    });
 
     describe('with skip', function() {
       it("doesn't call the api", function(done) {
