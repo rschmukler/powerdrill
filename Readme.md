@@ -378,6 +378,16 @@ Sets the subaccount field of the message
 message.subaccount('MyMandrillSubaccount');
 ```
 
+### message.attach(mime_type, file_name, base64_encoded_file_body)
+
+Adds an attachment to include in the email. The body should be a base64 encoded string.
+
+```js
+var fs = require('fs');
+var file = fs.readFileSync('test.pdf');
+message.attach('application/pdf', 'test.pdf', file.toString('base64'));
+```
+
 ## Planned features
 
 These are some ideas that I have to extend the library. Please open issues to
