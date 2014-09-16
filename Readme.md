@@ -180,7 +180,7 @@ Switches to `html` mode. The email will be sent with the html, instead of a
 template.
 
 ```js
-message.template('simple-template');
+message.html('<h1>Hello world, from Powerdrill</h1>');
 ```
 
 #### message.text(text)
@@ -189,7 +189,7 @@ Switches to `text` mode. The email will be sent with the text, instead of a
 template.
 
 ```js
-message.text('simple-text');
+message.text('Hello World');
 ```
 
 Additionally, for a multipart message with HTML and plain text, you can add both parts manually.
