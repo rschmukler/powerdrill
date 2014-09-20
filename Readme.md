@@ -174,6 +174,17 @@ using in Mandrill's templates.
 message.template('simple-template');
 ```
 
+#### message.templateContent(name, content)
+
+Adds to the `template_content` array for dynamic sections.
+
+```js
+message.template('my-template')
+  .templateContent('header', '<h1>Hello world</h1>')
+  .templateContent('body', '<p>You are so cool</p>')
+  .templateContent('footer', '<p>Sincerely,<br/>Our Team</p>')
+```
+
 #### message.html(html)
 
 Switches to `html` mode. The email will be sent with the html, instead of a
