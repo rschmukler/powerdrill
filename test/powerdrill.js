@@ -134,6 +134,18 @@ describe('Message', function() {
     });
   });
 
+  describe('#templateContent', function() {
+    it('adds the key value to _templateContent', function() {
+      message.templateContent('header', '<h1>Hello World</h1>');
+      expect(message._templateContent).to.have.length(1);
+      expect(message._templateContent[0]).to.have.property('name', 'header');
+      expect(message._templateContent[0]).to.have.property('content', '<h1>Hello World</h1>');
+    });
+    it('returns the message', function() {
+      expect(message.templateContent('header', '<h1>Hello World</h1>')).to.be(message);
+    });
+  });
+
   describe("#attach", function() {
     it("builds the attachments array", function () {
       message.attach("application/pdf", "test.pdf", "SOMEBASE64STRING");
