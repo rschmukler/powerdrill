@@ -245,6 +245,22 @@ complex:
 message.to('Ryan Schmukler <ryan@slingingcode.com>', {name: 'Ryan'}, {uid: 123})
 ```
 
+### message.trackClicks(val)
+
+Whether or not to track clicks.
+
+```js
+message.trackClicks(true);
+```
+
+### message.trackOpens(val)
+
+Whether or not to track opens.
+
+```js
+message.trackOpens(true);
+```
+
 ### message.send(done)
 
 Sends the message as configured. Typically the last command called. Calls
