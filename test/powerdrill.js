@@ -69,6 +69,14 @@ describe('Message', function() {
       expect(message._html).to.be(false);
     });
 
+    it('sets trackClicks to false', function() {
+      expect(message._trackClicks).to.be(false);
+    });
+
+    it('sets trackOpens to false', function() {
+      expect(message._trackOpens).to.be(false);
+    });
+
     it("sets 'globalMergeVars' to an empty array", function() {
       expect(message._globalMergeVars).to.be.a(Array);
       expect(message._globalMergeVars).to.have.length(0);
@@ -143,6 +151,40 @@ describe('Message', function() {
     });
     it('returns the message', function() {
       expect(message.templateContent('header', '<h1>Hello World</h1>')).to.be(message);
+    });
+  });
+
+  describe('#trackClicks', function() {
+    it('sets it to true', function() {
+      message.trackClicks();
+      expect(message._trackClicks).to.be(true);
+    });
+
+    it('allows setting to false', function() {
+      message.trackClicks();
+      message.trackClicks(false);
+      expect(message._trackClicks).to.be(false);
+    });
+
+    it('returns the message', function() {
+      expect(message.trackClicks()).to.be(message);
+    });
+  });
+
+  describe('#trackOpens', function() {
+    it('sets it to true', function() {
+      message.trackOpens();
+      expect(message._trackOpens).to.be(true);
+    });
+
+    it('allows setting to false', function() {
+      message.trackOpens();
+      message.trackOpens(false);
+      expect(message._trackOpens).to.be(false);
+    });
+
+    it('returns the message', function() {
+      expect(message.trackOpens()).to.be(message);
     });
   });
 
