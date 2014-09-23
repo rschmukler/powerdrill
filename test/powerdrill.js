@@ -200,6 +200,17 @@ describe('Message', function() {
     });
   });
 
+  describe('#bcc', function() {
+    it('sets the bcc', function() {
+      message.bcc('ryan@slingingcode.com');
+      expect(message._bcc).to.be('ryan@slingingcode.com');
+    });
+
+    it('returns the message', function() {
+      expect(message.bcc('blah')).to.be(message);
+    });
+  });
+
   describe('#html', function() {
     it('sets the _html', function() {
       message.html('<h1>Hello World</h1>');
