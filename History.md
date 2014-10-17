@@ -1,4 +1,10 @@
 
+0.2.10 / 2014-10-17 
+==================
+
+ * add bcc functionality
+ * add trackClicks and trackOpens
+
 0.2.9 / 2014-09-19 
 ==================
 

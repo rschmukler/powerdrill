@@ -1,6 +1,6 @@
 {
   "name": "powerdrill",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Power mandrill client for working with templates",
   "main": "index.js",
   "scripts": {
