@@ -65,6 +65,10 @@ describe('Message', function() {
       expect(message._skip).to.be(false);
     });
 
+    it('sets headers to an empty object', function() {
+      expect(message._headers).to.eql({});
+    });
+
     it('sets html to false', function() {
       expect(message._html).to.be(false);
     });
@@ -122,6 +126,21 @@ describe('Message', function() {
     });
     it("returns the message", function() {
       expect(message.apiKey('123')).to.be(message);
+    });
+  });
+
+  describe('#headers', function() {
+    it('sets a header value', function() {
+      message.header('name', 'bob');
+      expect(message._headers.name).to.be('bob');
+    });
+    it('clears a header value', function() {
+      message.header('name', 'bob');
+      message.header('name', undefined);
+      expect(message._headers).to.not.have.property('name');
+    });
+    it('returns the message', function() {
+      expect(message.header('test', '123')).to.be(message);
     });
   });
 
