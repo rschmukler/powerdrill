@@ -165,6 +165,16 @@ Sets the apiKey to `key`. Ret
 message.apiKey('123');
 ```
 
+#### message.header(key, value)
+
+Sets the header property `key` to `value`.
+
+If `value` is `undefined`, it clears the header of `key` property.
+
+```js
+message.header('Reply-To', 'someperson@somewhere.com');
+```
+
 #### message.template(template)
 
 Sets the template to `template`. This should match the `template-slug` you are
