@@ -73,14 +73,6 @@ describe('Message', function() {
       expect(message._html).to.be(false);
     });
 
-    it('sets trackClicks to false', function() {
-      expect(message._trackClicks).to.be(false);
-    });
-
-    it('sets trackOpens to false', function() {
-      expect(message._trackOpens).to.be(false);
-    });
-
     it("sets 'globalMergeVars' to an empty array", function() {
       expect(message._globalMergeVars).to.be.a(Array);
       expect(message._globalMergeVars).to.have.length(0);
