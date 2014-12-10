@@ -1,4 +1,9 @@
 
+0.2.12 / 2014-12-09
+==================
+
+  * switch track_opens and track_clicks to be undefined by default, using mandrills account settings
+
 0.2.11 / 2014-10-19 
 ==================
 
