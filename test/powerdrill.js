@@ -227,6 +227,16 @@ describe('Message', function() {
       message.html('<h1>Hello World</h1>');
       expect(message._html).to.be('<h1>Hello World</h1>');
     });
+
+    it('clears the template', function() {
+      message._template = 'blah';
+      message.html('<h1>Hello World</h1>');
+      expect(message._template).to.be(false);
+    });
+
+    it('returns the message', function() {
+      expect(message.html('<h1>Hello World</h1>')).to.be(message);
+    });
   });
 
   describe('#subject', function() {
