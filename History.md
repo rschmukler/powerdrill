@@ -1,4 +1,9 @@
 
+0.2.15 / 2015-01-24
+==================
+
+  * add support for array type responses from mandrill
+
 0.2.14 / 2015-01-24
 ==================
 
