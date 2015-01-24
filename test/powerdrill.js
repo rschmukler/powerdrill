@@ -619,6 +619,27 @@ describe('Message', function() {
   describe('#send', function() {
     var oldPost = request.post;
 
+    it('catches mandrill errors', function() {
+      request.post = function(url) {
+        var apiMock = { };
+        apiMock.send = function(cb) {
+          return this;
+        };
+        apiMock.end = function(cb) {
+          request.post = oldPost;
+          cb({ok: true, body: { status: 'rejected', reject_reason: 'fail' }});
+        };
+        return apiMock;
+      };
+      message = new Message('123', 'registration');
+      message.send(function(err, body) {
+        expect(err).to.be.ok();
+        expect(err.message).to.be('fail');
+        expect(body).to.be.ok();
+        expect(body.status).to.be('rejected');
+      });
+    });
+
     describe('with template', function() {
       it('sends the email with send-template', function(done) {
         request.post = function(url) {
@@ -629,7 +650,7 @@ describe('Message', function() {
           };
           apiMock.end = function(cb) {
             request.post = oldPost;
-            cb({ok: true});
+            cb({ok: true, body: {}});
           };
           return apiMock;
         };
@@ -660,7 +681,7 @@ describe('Message', function() {
           };
           apiMock.end = function(cb) {
             request.post = oldPost;
-            cb({ok: true});
+            cb({ok: true, body: {}});
           };
           return apiMock;
         };
@@ -694,7 +715,7 @@ describe('Message', function() {
           };
           apiMock.end = function(cb) {
             request.post = oldPost;
-            cb({ok: true});
+            cb({ok: true, body: {}});
           };
           return apiMock;
         };
@@ -728,7 +749,7 @@ describe('Message', function() {
           };
           apiMock.end = function(cb) {
             request.post = oldPost;
-            cb({ok: true});
+            cb({ok: true, body: {}});
           };
           return apiMock;
         };
@@ -769,7 +790,7 @@ describe('Message', function() {
       before(function() {
         apiMock = {
           send: function() { return this; },
-          end: function(cb) { cb({ok: true}); return this; }
+          end: function(cb) { cb({ok: true, body: {}}); return this; }
         };
         request.post = function() {
           return apiMock;
