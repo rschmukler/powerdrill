@@ -627,7 +627,7 @@ describe('Message', function() {
         };
         apiMock.end = function(cb) {
           request.post = oldPost;
-          cb({ok: true, body: { status: 'rejected', reject_reason: 'fail' }});
+          cb({ok: true, body: [{ status: 'rejected', reject_reason: 'fail' }]});
         };
         return apiMock;
       };
@@ -636,7 +636,7 @@ describe('Message', function() {
         expect(err).to.be.ok();
         expect(err.message).to.be('fail');
         expect(body).to.be.ok();
-        expect(body.status).to.be('rejected');
+        expect(body[0].status).to.be('rejected');
       });
     });
 
@@ -650,7 +650,7 @@ describe('Message', function() {
           };
           apiMock.end = function(cb) {
             request.post = oldPost;
-            cb({ok: true, body: {}});
+            cb({ok: true, body: [{}]});
           };
           return apiMock;
         };
@@ -681,7 +681,7 @@ describe('Message', function() {
           };
           apiMock.end = function(cb) {
             request.post = oldPost;
-            cb({ok: true, body: {}});
+            cb({ok: true, body: [{}]});
           };
           return apiMock;
         };
@@ -715,7 +715,7 @@ describe('Message', function() {
           };
           apiMock.end = function(cb) {
             request.post = oldPost;
-            cb({ok: true, body: {}});
+            cb({ok: true, body: [{}]});
           };
           return apiMock;
         };
@@ -749,7 +749,7 @@ describe('Message', function() {
           };
           apiMock.end = function(cb) {
             request.post = oldPost;
-            cb({ok: true, body: {}});
+            cb({ok: true, body: [{}]});
           };
           return apiMock;
         };
@@ -790,7 +790,7 @@ describe('Message', function() {
       before(function() {
         apiMock = {
           send: function() { return this; },
-          end: function(cb) { cb({ok: true, body: {}}); return this; }
+          end: function(cb) { cb({ok: true, body: [{}]}); return this; }
         };
         request.post = function() {
           return apiMock;
