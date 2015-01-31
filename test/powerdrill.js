@@ -467,8 +467,29 @@ describe('Message', function() {
 
     it('adds user-specific metadata', function() {
       message.to('John Doe <john@gmail.com>', {cool: false}, {userId: 123});
-      var mergeRecord = message._userMetadata[0];
-      expect(mergeRecord).to.have.property('rcpt', 'john@gmail.com');
+      var metaData = message._userMetadata[0];
+      expect(metaData).to.have.property('rcpt', 'john@gmail.com');
+    });
+
+
+    describe('with a duplicate email', function() {
+      it('gives a warning', function() {
+        var called = false;
+        var warn = console.warn;
+        console.warn = function() { called = true; console.warn = warn; };
+        message.to('John Doe <john@gmail.com');
+        message.to('John Doe <john@gmail.com');
+        expect(called).to.be.ok();
+      });
+
+      it('does not overwrite merge vars or metadata', function() {
+        message.to('John Doe <john@gmail.com', { a: true }, { b: true });
+        message.to('John Doe <john@gmail.com', { a: false }, { b: false });
+        var mergeRecord = message._mergeVars[0];
+        var metaData = message._userMetadata[0];
+        expect(mergeRecord.vars[0]).to.have.property('content', true);
+        expect(metaData.values).to.have.property('b', true);
+      });
     });
 
     it('returns the message', function() {
