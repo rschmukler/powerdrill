@@ -479,6 +479,7 @@ describe('Message', function() {
         console.warn = function() { called = true; console.warn = warn; };
         message.to('John Doe <john@gmail.com');
         message.to('John Doe <john@gmail.com');
+        expect(message._to.length).to.be(2);
         expect(called).to.be.ok();
       });
 
