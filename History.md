@@ -1,4 +1,9 @@
 
+0.2.17 / 2015-08-19
+==================
+
+  * Allow sending to duplicate email addresses (as per warning error message)
+
 0.2.16 / 2015-02-01
 ==================
 
