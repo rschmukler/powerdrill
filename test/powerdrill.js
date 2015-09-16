@@ -453,6 +453,24 @@ describe('Message', function() {
   });
 
   describe('#to', function() {
+    it('defaults to "to" type', function() {
+        message.to('John Doe <john@gmail.com>');
+        expect(message._to[0]).to.have.property('type', 'to');
+    });
+    it('can be set to "cc"', function() {
+        message.to('Jane Doe <john@gmail.com>', {}, {}, "cc");
+        expect(message._to[0]).to.have.property('type', 'cc');
+    });
+    it('can be set to "bcc"', function() {
+        message.to('Jane Doe <john@gmail.com>', {}, {}, "bcc");
+        expect(message._to[0]).to.have.property('type', 'bcc');
+    });
+    it('fall back to "to" if invalid type given', function() {
+        message.to('Jane Doe <john@gmail.com>', {}, {}, "garbage");
+        expect(message._to[0]).to.have.property('type', 'to');
+    });
+
+
     it('adds the recipient', function() {
       message.to('John Doe <john@gmail.com>');
       expect(message._to[0]).to.have.property('name', 'John Doe');
