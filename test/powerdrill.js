@@ -211,14 +211,14 @@ describe('Message', function() {
     });
   });
 
-  describe('#bcc', function() {
+  describe('#globalBcc', function() {
     it('sets the bcc', function() {
-      message.bcc('ryan@slingingcode.com');
+      message.globalBcc('ryan@slingingcode.com');
       expect(message._bcc).to.be('ryan@slingingcode.com');
     });
 
     it('returns the message', function() {
-      expect(message.bcc('blah')).to.be(message);
+      expect(message.globalBcc('blah')).to.be(message);
     });
   });
 
@@ -457,6 +457,7 @@ describe('Message', function() {
       message.to('John Doe <john@gmail.com>');
       expect(message._to[0]).to.have.property('name', 'John Doe');
       expect(message._to[0]).to.have.property('email', 'john@gmail.com');
+      expect(message._to[0]).to.have.property('type', 'to');
     });
 
     it('adds merge vars', function() {
@@ -470,7 +471,6 @@ describe('Message', function() {
       var metaData = message._userMetadata[0];
       expect(metaData).to.have.property('rcpt', 'john@gmail.com');
     });
-
 
     describe('with a duplicate email', function() {
       it('gives a warning', function() {
@@ -497,6 +497,25 @@ describe('Message', function() {
       expect(message.to('John Doe <john@gmail.com>')).to.be(message);
     });
   });
+
+  describe('#bcc', function() {
+    it('adds the recipient', function() {
+      message.bcc('John Doe <john@gmail.com>');
+      expect(message._to[0]).to.have.property('name', 'John Doe');
+      expect(message._to[0]).to.have.property('email', 'john@gmail.com');
+      expect(message._to[0]).to.have.property('type', 'bcc');
+    });
+  });
+
+  describe('#cc', function() {
+    it('adds the recipient', function() {
+      message.cc('John Doe <john@gmail.com>');
+      expect(message._to[0]).to.have.property('name', 'John Doe');
+      expect(message._to[0]).to.have.property('email', 'john@gmail.com');
+      expect(message._to[0]).to.have.property('type', 'cc');
+    });
+  });
+
 
   describe('#tags', function() {
     it('aliases to tag', function() {
