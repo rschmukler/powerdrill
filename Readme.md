@@ -1,5 +1,5 @@
 # Powerdrill
-[![Build Status](https://api.travis-ci.org/rschmukler/powerdrill.png)](http://travis-ci.org/rschmukler/powerdrill) 
+[![Build Status](https://api.travis-ci.org/rschmukler/powerdrill.png)](http://travis-ci.org/rschmukler/powerdrill)
 [![Coverage Status](https://coveralls.io/repos/rschmukler/powerdrill/badge.png)](https://coveralls.io/r/rschmukler/powerdrill)
 
 Mandrill with power!
@@ -43,7 +43,7 @@ Or with pure html:
 ```js
 var email = require('powerdrill')('myApiKey');
 
-var message = email(); 
+var message = email();
 
 message
 .subject('Thanks for registering')
@@ -216,7 +216,7 @@ message.text('Hello World');
 Additionally, for a multipart message with HTML and plain text, you can add both parts manually.
 
 ```js
-message.html('<h1>Hello world</h1>'); 
+message.html('<h1>Hello world</h1>');
 message.text('Hello world');
 ```
 
@@ -242,8 +242,8 @@ message.from('Ryan Schmukler <ryan@slingingcode.com>');
 #### message.to(address, recipientVariables, recipientMetadata)
 
 Adds a recipient. Call multiple times to add multiple recipients.
-`recipientVariables` and `recipientMetadata` are both optional. See below for
-other ways to add.
+`recipientVariables` and `recipientMetadata` are optional. 
+See below for other ways to add.
 
 simple:
 ```js
@@ -252,8 +252,40 @@ message.to('ryan@slingingcode.com');
 
 complex:
 ```js
-message.to('Ryan Schmukler <ryan@slingingcode.com>', {name: 'Ryan'}, {uid: 123})
+message.to('Ryan Schmukler <ryan@slingingcode.com>', {name: 'Ryan'}, {uid: 123}, 'cc')
 ```
+
+#### message.bcc(address, recipientVariables, recipientMetadata)
+
+Adds a recipient that will be BCC'd. `recipientVariables` and `recipientMetadata` 
+are optional. See below for other ways to add.
+
+```js
+message.bcc('ryan@slingingcode.com');
+```
+
+#### message.cc(address, recipientVariables, recipientMetadata)
+
+Adds a recipient that will be CC'd. `recipientVariables` and `recipientMetadata` 
+are optional. See below for other ways to add.
+
+```js
+message.cc('ryan@slingingcode.com');
+```
+
+#### message.globalBcc(address)
+
+Add an email that will be BCC'd for all emails send via the message.
+
+```js
+message.globalBcc('admin@myorganization.com');
+```
+
+
+```js
+message.cc('ryan@slingingcode.com');
+```
+
 
 ### message.trackClicks(val)
 
@@ -315,7 +347,7 @@ message.tag('easy');
 
 ### message.important(val)
 
-Sets the message as important, prioritizing it in mandrill's queue. 
+Sets the message as important, prioritizing it in mandrill's queue.
 
 `val` is optional, but setting it to false will mark it back to not important (default).
 
@@ -393,7 +425,7 @@ message.metadata({someVar: someValue});
 
 Aliased to `message.recipientMetadata`.
 
-Adds a variable for a specific recipient for use in mandrill's recipient metadata. 
+Adds a variable for a specific recipient for use in mandrill's recipient metadata.
 See `message#to` for a shortcut.
 
 Takes an object of variables.
