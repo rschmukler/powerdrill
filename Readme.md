@@ -252,7 +252,7 @@ message.to('ryan@slingingcode.com');
 
 complex:
 ```js
-message.to('Ryan Schmukler <ryan@slingingcode.com>', {name: 'Ryan'}, {uid: 123}, 'cc')
+message.to('Ryan Schmukler <ryan@slingingcode.com>', {name: 'Ryan'}, {uid: 123});
 ```
 
 #### message.bcc(address, recipientVariables, recipientMetadata)
