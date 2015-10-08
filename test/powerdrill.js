@@ -538,6 +538,28 @@ describe('Message', function() {
     });
   });
 
+  describe('#image', function() {
+    it("adds the image to the array", function() {
+      message.image('image/png', 'testImage', 'SOMEBASE64');
+      expect(message._images.length).to.be.above(0);
+      expect(message._images[0]).to.be.a('object');
+      expect(message._images[0].name).to.be.a('string');
+      expect(message._images[0].type).to.be.a('string');
+      expect(message._images[0].content).to.be.a('string');
+    });
+  });
+
+  describe('#attach', function() {
+    it("adds the attachment to the array", function() {
+      message.attach('application/pdf', 'document.pdf', 'SOMEBASE64');
+      expect(message._attachments.length).to.be.above(0);
+      expect(message._attachments[0]).to.be.a('object');
+      expect(message._attachments[0].name).to.be.a('string');
+      expect(message._attachments[0].type).to.be.a('string');
+      expect(message._attachments[0].content).to.be.a('string');
+    });
+  });
+
   describe('#requestData', function() {
     var request, message;
     beforeEach(function() {
@@ -654,6 +676,16 @@ describe('Message', function() {
       expect(recipientMetadata[0]).to.have.property('rcpt', 'user@test.com');
       expect(recipientMetadata[0]).to.have.property('values');
       expect(recipientMetadata[0].values).to.have.property('uid', 123);
+    });
+
+    it('includes attachments', function() {
+      request = message.requestData();
+      expect(message._attachments).to.be.an(Array);
+    });
+
+    it('includes images', function() {
+      request = message.requestData();
+      expect(message._images).to.be.an(Array);
     });
   });
 
