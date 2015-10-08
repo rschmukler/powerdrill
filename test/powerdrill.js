@@ -547,6 +547,10 @@ describe('Message', function() {
       expect(message._images[0].type).to.be.a('string');
       expect(message._images[0].content).to.be.a('string');
     });
+
+    it('returns the message', function() {
+      expect(message.image('image/png', 'testImage', 'SOMEBASE64')).to.be(message);
+    });
   });
 
   describe('#attach', function() {
@@ -557,6 +561,10 @@ describe('Message', function() {
       expect(message._attachments[0].name).to.be.a('string');
       expect(message._attachments[0].type).to.be.a('string');
       expect(message._attachments[0].content).to.be.a('string');
+    });
+
+    it('returns the message', function() {
+      expect(message.attach('application/pdf', 'document.pdf', 'SOMEBASE64')).to.be(message);
     });
   });
 
