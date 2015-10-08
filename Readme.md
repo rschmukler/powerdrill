@@ -242,7 +242,7 @@ message.from('Ryan Schmukler <ryan@slingingcode.com>');
 #### message.to(address, recipientVariables, recipientMetadata)
 
 Adds a recipient. Call multiple times to add multiple recipients.
-`recipientVariables` and `recipientMetadata` are optional. 
+`recipientVariables` and `recipientMetadata` are optional.
 See below for other ways to add.
 
 simple:
@@ -257,7 +257,7 @@ message.to('Ryan Schmukler <ryan@slingingcode.com>', {name: 'Ryan'}, {uid: 123})
 
 #### message.bcc(address, recipientVariables, recipientMetadata)
 
-Adds a recipient that will be BCC'd. `recipientVariables` and `recipientMetadata` 
+Adds a recipient that will be BCC'd. `recipientVariables` and `recipientMetadata`
 are optional. See below for other ways to add.
 
 ```js
@@ -266,7 +266,7 @@ message.bcc('ryan@slingingcode.com');
 
 #### message.cc(address, recipientVariables, recipientMetadata)
 
-Adds a recipient that will be CC'd. `recipientVariables` and `recipientMetadata` 
+Adds a recipient that will be CC'd. `recipientVariables` and `recipientMetadata`
 are optional. See below for other ways to add.
 
 ```js
@@ -455,6 +455,16 @@ Adds an attachment to include in the email. The body should be a base64 encoded 
 var fs = require('fs');
 var file = fs.readFileSync('test.pdf');
 message.attach('application/pdf', 'test.pdf', file.toString('base64'));
+```
+
+### message.image(mime_type, image_name, base64_encoded_image_body)
+
+Adds an image to include in-line in the email. The body should be a base64 encoded string.
+
+```js
+var fs = require('fs');
+var image = fs.readFileSync('test.png');
+message.image('image/png', 'test.png', image.toString('base64'));
 ```
 
 ## Planned features
