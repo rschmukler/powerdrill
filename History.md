@@ -1,4 +1,10 @@
 
+0.2.19 / 2015-11-02
+==================
+
+  * Make attach and image return the message and update tests accordingly
+  * Add inline image functionality [thanks @pthm[
+
 0.2.18 / 2015-09-17
 ==================
 
