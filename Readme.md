@@ -4,6 +4,15 @@
 
 Mandrill with power!
 
+## Notice: No longer maintained
+
+In lite of 
+Due to Mandrill's
+[announcement](http://blog.mandrill.com/important-changes-to-mandrill.html)
+affecting their pricing, I will no longer be maintaining this module. If people
+want to submit PRs I will likely merge them in, but I will not be actively
+working on this as I have moved on to greener pastures.
+
 
 ## Why?
 
