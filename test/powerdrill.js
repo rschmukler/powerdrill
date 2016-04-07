@@ -568,6 +568,16 @@ describe('Message', function() {
     });
   });
 
+  describe('#sendAt', function(){
+    it('sets the send_at string', function(){
+      message.sendAt(new Date('2016-04-07T18:00:00Z'));
+      expect(message._sendAt).to.be.a('string');
+    });
+    it('returns the message', function() {
+      expect(message.sendAt(new Date('2016-04-07T18:00:00Z'))).to.be(message);
+    });
+  })
+
   describe('#requestData', function() {
     var request, message;
     beforeEach(function() {
@@ -695,6 +705,12 @@ describe('Message', function() {
       request = message.requestData();
       expect(message._images).to.be.an(Array);
     });
+
+    it('includes send_at', function(){
+      message.sendAt(new Date('2016-04-07T18:00:00Z'));
+      var request = message.requestData();
+      expect(request.send_at).to.be.ok();
+    })
   });
 
   describe('#send', function() {
@@ -851,6 +867,16 @@ describe('Message', function() {
         expect(request.message.attachments[0].name).to.be('file.pdf');
         expect(request.message.attachments[0].type).to.be('application/pdf');
         expect(request.message.attachments[0].content).to.be('SOMEBASE64STRING');
+      });
+    });
+
+    describe("with send at date", function () {
+      it("send_at is part of the message to Mandrill", function () {
+        message = new Message('123');
+        message.sendAt(new Date('2016-04-07T18:00:00Z'));
+        var request = message.requestData();
+        expect(request.send_at).to.be.a.string;
+        expect(request.send_at).to.be('2016-04-07 18:00:00');
       });
     });
 
