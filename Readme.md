@@ -475,6 +475,18 @@ var image = fs.readFileSync('test.png');
 message.image('image/png', 'test.png', image.toString('base64'));
 ```
 
+### message.sendAt(date)
+
+Sets the time the message should be sent, this accepts any of the formats that a native Date object would.
+
+Note from mandrills documentation
+> An additional fee applies for scheduled email, and this feature is only available to accounts with a positive balance
+
+```js
+message.sendAt('2016-01-01 18:00:00');
+```
+
+
 ## Planned features
 
 These are some ideas that I have to extend the library. Please open issues to
