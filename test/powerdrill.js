@@ -199,6 +199,22 @@ describe('Message', function() {
     });
   });
 
+  describe('#mergeLanguage', function() {
+    it('sets it to handlebars', function() {
+      message.mergeLanguage('handlebars');
+      expect(message._merge_language).to.be('handlebars');
+    });
+
+    it('defaults to mailchimp', function() {
+      message.mergeLanguage('some-wrong-language');
+      expect(message._merge_language).to.be('mailchimp');
+    });
+
+    it('returns the message', function() {
+      expect(message.mergeLanguage('handlebars')).to.be(message);
+    });
+  });
+
   describe("#attach", function() {
     it("builds the attachments array", function () {
       message.attach("application/pdf", "test.pdf", "SOMEBASE64STRING");

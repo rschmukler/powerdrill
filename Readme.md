@@ -390,6 +390,16 @@ message.preserveRecipients(true) // also enables
 message.preserveRecipients(false) // disables preserveRecipients
 ```
 
+### message.mergeLanguage(val)
+
+Set merge language to handlebars notation (`{{ my_var }}`). Any other value defaults to mailchimp
+notation (`*| my_var |*`)
+
+```js
+message.mergeLanguage('handlebars');
+```
+
+
 ### message.globalMergeVar(key, value)
 
 Aliased to `message.globalMergeVars`.
